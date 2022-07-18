@@ -1,0 +1,62 @@
+; header info
+G17    ;xy plance selection
+G40    ;cancel tool comp
+G90    ;cancel tool comp
+G71    ;metric units
+G92    ;clear offsets
+G53    ;reset wcs
+G13    ;feed-rate axis to x,y,z
+
+; set ball bar variables
+P0 = 0		;set X axis center point
+P1 = 0  	;set Y axis center point
+P2 = 5		;set Z axis height
+P3 = 150	;set radius of circle
+P4 = 30		;set number of circle moves for each test
+P5 = 0		;loop counter
+ 
+F(150*60)    ;set transistion feed-rate
+
+;M157.1 T0    ;start hsdaq
+G4 F(0.1)    ;dwell to let hsdaq start
+
+; raise Z
+G01 Z5;
+G4 F(0.1);
+
+; move to center of ball bar circle
+
+G01 XP0 YP1    ;move to origin
+; stop here and wait for plc input
+; **** place holder for wait on plc input
+
+; set ball bar feed rate - this results in correct feed-rate in mm/sec
+;P20 = 800 * 0.636618283677107;
+P20 = 750
+; feed-rate w/ no scale factor will be about 1.6x higher than desired
+;P20 = 175
+
+; set feed-rate in mm/min
+F(P20*60)
+
+
+; move to start point
+P10 = P0 + P3
+G01 XP10 C0
+; set end move in X
+P11 = P0 - P3
+
+G04 F(0.1)
+; do two ccw moves
+WHILE (P5 < P4)
+	G03 XP11 YP1 RP3
+	G03 XP10 YP1 RP3
+	P5 = P5 + 1
+ENDWHILE
+
+; move to start point
+P10 = P0 + P3
+G01 XP10
+
+;M157.10
+G4 F(0.1)

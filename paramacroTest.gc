@@ -1,0 +1,4 @@
+;paramacro setup test
+P0 = 100
+P1 = 200
+P3 = 90

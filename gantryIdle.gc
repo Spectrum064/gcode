@@ -1,0 +1,23 @@
+; header info
+G17    ;xy plance selection
+G40    ;cancel tool comp
+G90    ;cancel tool comp
+G71    ;metric units
+G92    ;clear offsets
+G53    ;reset wcs
+G13    ;feed-rate axis to x,y,z
+
+; set return to idle feed-rate
+F(100*60)
+; reset at idle output to plc
+M150.2 Q0 R0
+; raise Z axis
+G01 Z02
+G4 F(0.1)
+
+; move back to idle position
+G01 X0 Y155
+G4 F(0.1)
+
+; set at idle output to plc
+M150.1 Q0 R0

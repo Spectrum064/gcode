@@ -1,0 +1,17 @@
+; header info
+G17    ;xy plance selection
+G40    ;cancel tool comp
+G90    ;cancel tool comp
+G71    ;metric units
+G92    ;clear offsets
+G53    ;reset wcs
+G13    ;feed-rate axis to x,y,z
+ 
+ 
+F(200*60)    ;set feed-rate
+G01 X100 Y100 C0    ;move to origin
+
+M166.1 Q1;
+
+G01 X0 Y0 C0
+

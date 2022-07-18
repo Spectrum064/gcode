@@ -1,0 +1,11 @@
+; header info
+G17    ;xy plance selection
+G40    ;cancel tool comp
+G90    ;cancel tool comp
+G71    ;metric units
+G92    ;clear offsets
+G53    ;reset wcs
+G13    ;feed-rate axis to x,y,z
+
+M166.2 Q1		;disable auto-focus
+

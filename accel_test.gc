@@ -1,0 +1,20 @@
+G17		; xy plane selection
+G40		; cancel any active tool radius compensation
+G90		; absolute programming
+G71		; metric units
+G92 	;Clear G-Code offset position
+G53 	;Reset the work coordinate system
+
+; Go to initial position
+
+F(500*60) 		; Set the feed rate (velocity) in mm/min
+
+
+G4 F(0.2)		; dwell
+M157.1 P0
+
+G01 X1000
+
+
+G4 F(0.1)
+M157.10

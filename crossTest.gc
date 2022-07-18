@@ -1,0 +1,115 @@
+; header info
+G17    ;xy plane selection
+G40    ;cancel tool comp
+G90    ;cancel tool comp
+G71    ;metric units
+G92    ;clear offsets
+G53    ;reset wcs
+G13    ;feed-rate axis to x,y,z
+ 
+F(200*60)    ;set feed-rate
+
+;Move to top of vertical line
+G01 X0 Y55 C-90
+; K[cut head axis number] X[x axis number] Y[y axis number] H[head caster offset] L[x-alignment] O[part offsets]
+M218 K4 X0 Y2 H6.35 L0 O0
+G01 X0 Y55 C-90
+ 
+M175 P28 S30 D-2.0
+M166.1 Q1  		;enable auto-focus
+M185 P0 E800    ;disable C and open fe
+M165.1			;enable cut distance
+G4 F(0.5)
+
+F(200*60)   	;set path feed-rate
+G01 X0 Y-55 C-90
+G4 F(0.1)
+
+;raise z
+F(30*60)
+G01 Z5
+M167 Q1 R5 ;turn off auto-focus
+M219		;turn off kinematics
+M185 P1 E1	;turn c-axis on
+
+;*** bottom of vertical line ****
+;rotate c axis 
+F(200*60)
+G01 X0 Y-55 C90
+;G4 F(0.01)
+
+;turn kinematics on
+M218 K4 X0 Y2 H6.35 L0 O0
+G01 X0 Y-55 C90	;move to start position
+
+;lower down to part and run
+M175 P28 S30 D-2.0
+M166.1 Q1  		;enable auto-focus
+M185 P0 E0    ;disable C and open fe
+M165.1			;enable cut distance
+F(200*60)
+G4 F(0.5)
+G01 X0 Y55 C90
+
+;raise z axis
+F(30*60)
+G01 Z5
+M167 Q1 R5 ;turn off auto-focus
+M219		;turn off kinematics
+M185 P1 E1	;turn c-axis on
+G4 F(0.1)
+G01 X55 Y0 C180
+;G4 F(0.1)
+
+;****** right side horz line *****
+;turn kinematics on
+M218 K4 X0 Y2 H6.35 L0 O0
+F(200*60)
+G01 X55 Y0 C180	;move to start position
+
+;lower down to part and run
+M175 P28 S30 D-2.0
+M166.1 Q1  		;enable auto-focus
+M185 P0 E800    ;disable C and open fe
+M165.1			;enable cut distance
+F(200*60)
+G4 F(0.5)
+G01 X-55 Y0 C180
+
+;raise z axis
+F(30*60)
+G01 Z5
+M167 Q1 R5 ;turn off auto-focus
+M219		;turn off kinematics
+M185 P1 E800	;turn c-axis on
+G4 F(0.1)
+G01 X-55 Y0 C0
+;G4 F(0.1)
+
+;****** right side horz line *****
+;turn kinematics on
+M218 K4 X0 Y2 H6.35 L0 O0
+G01 X-55 Y0 C0	;move to start position
+F(200*60)
+
+;lower down to part and run
+M175 P28 S30 D-2.0
+M166.1 Q1  		;enable auto-focus
+M185 P0 E800    ;disable C and open fe
+M165.1			;enable cut distance
+F(200*60)
+G4 F(0.5)
+G01 X55 Y0 C0
+
+;raise z axis
+F(30*60)
+G01 Z5
+M167 Q1 R5 ;turn off auto-focus
+M219		;turn off kinematics
+M185 P1 E800	;turn c-axis on
+G4 F(0.1)
+M165.2			;cut distance off
+
+F(200*60)
+;back to idle position
+G01 X0 Y155 C0

@@ -1,0 +1,29 @@
+; header info
+G17    ;xy plance selection
+G40    ;cancel tool comp
+G90    ;cancel tool comp
+G71    ;metric units
+G92    ;clear offsets
+G53    ;reset wcs
+G13    ;feed-rate axis to x,y,z
+
+F(25*60)
+
+G01 Z5		;move to 5mm
+
+; move to auto-focus position, max pos 38mm, vel 25mm/sec, v-axis pos = 5mm
+M175 P38 S25 D-2.0
+
+M166.1 Q1	;enable auto-focus
+
+; do shape here
+G4 F(12.0)
+
+F(30*60)
+G01 Z5
+G4 F(0.01)
+
+M166.2 Q1	;disable auto-focus
+G4 F(0.01)
+
+G01 Z5
